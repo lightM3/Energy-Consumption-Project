@@ -1,0 +1,12 @@
+2025/11/27-12:53:37.099 3960 Reusing MANIFEST C:\Scrap\wunderground_chrome_profile\Default\Session Storage/MANIFEST-000001
+2025/11/27-12:53:37.100 3960 Recovering log #56
+2025/11/27-12:53:37.103 3960 Reusing old log C:\Scrap\wunderground_chrome_profile\Default\Session Storage/000056.log 
+2025/11/27-12:53:37.354 4528 Compacting 1@1 + 1@2 files
+2025/11/27-12:53:37.361 4528 Generated table #60@1: 880 keys, 41298 bytes
+2025/11/27-12:53:37.361 4528 Compacted 1@1 + 1@2 files => 41298 bytes
+2025/11/27-12:53:37.363 4528 compacted to: files[ 0 0 1 0 0 0 0 ]
+2025/11/27-12:53:41.135 4528 Level-0 table #62: started
+2025/11/27-12:53:41.153 4528 Level-0 table #62: 50908 bytes OK
+2025/11/27-12:53:41.155 4528 Delete type=2 #5
+2025/11/27-12:53:41.155 4528 Delete type=0 #56
+2025/11/27-12:53:41.156 4528 Delete type=2 #58
