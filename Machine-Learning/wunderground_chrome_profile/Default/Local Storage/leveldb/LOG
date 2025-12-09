@@ -1,9 +1,0 @@
-2025/12/09-14:44:19.873 2e2c Reusing MANIFEST C:\Energy-Consumption-Project\Machine-Learning\wunderground_chrome_profile\Default\Local Storage\leveldb/MANIFEST-000001
-2025/12/09-14:44:19.879 2e2c Recovering log #68
-2025/12/09-14:44:19.880 2e2c Reusing old log C:\Energy-Consumption-Project\Machine-Learning\wunderground_chrome_profile\Default\Local Storage\leveldb/000068.log 
-2025/12/09-14:54:22.233 2914 Level-0 table #73: started
-2025/12/09-14:54:22.246 2914 Level-0 table #73: 15263 bytes OK
-2025/12/09-14:54:22.249 2914 Delete type=0 #68
-2025/12/09-15:11:22.219 2e2c Level-0 table #75: started
-2025/12/09-15:11:22.230 2e2c Level-0 table #75: 13730 bytes OK
-2025/12/09-15:11:22.233 2e2c Delete type=0 #72
