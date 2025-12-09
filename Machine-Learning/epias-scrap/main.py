@@ -12,7 +12,7 @@ USER_DATA_DIR = "epias_oturum_profili"
 URL = "https://seffaflik.epias.com.tr/electricity/electricity-consumption/ex-post-consumption/real-time-consumption"
 
 # Kaç günlük veri kontrol edilecek?
-DAYS_TO_SCRAPE = 184
+DAYS_TO_SCRAPE = 500
 start_date = date.today() - timedelta(days=DAYS_TO_SCRAPE)
 end_date = date.today() - timedelta(days=1)
 

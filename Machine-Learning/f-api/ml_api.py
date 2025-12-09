@@ -3,12 +3,13 @@ import joblib
 import pandas as pd
 import numpy as np
 import os
+from flask_cors import CORS
 
 # Flask uygulamasını başlat
 app = Flask(__name__)
+CORS(app)  # CORS'u etkinleştir
 
 # --- MODEL YÜKLEME ---
-# Dinamik dosya yolu: Kod nerede çalışırsa çalışsın, pkl dosyasını kendi yanından bulur.
 MODEL_FILE = 'elektrik_tuketim_modeli.pkl'
 MODEL_PATH = os.path.join(os.path.dirname(__file__), MODEL_FILE)
 
@@ -23,7 +24,7 @@ except Exception as e:
     print(f"❌ HATA: Model yüklenirken bir sorun oluştu.\n{e}")
     model = None
 
-# --- SAĞLIK KONTROLÜ (Health Check) ---
+# --- ANA SAYFA ENDPOINT'İ ---
 @app.route('/', methods=['GET'])
 def home():
     status = "AKTİF" if model else "MODEL YÜKLENEMEDİ"
