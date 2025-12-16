@@ -1,0 +1,24 @@
+
+syntax = "proto3";
+
+package tahmin;
+
+
+service TahminService {
+  
+  rpc TahminYap (TahminIstegi) returns (TahminYaniti) {}
+}
+
+
+message TahminIstegi {
+  string tarih = 1;
+  int32 saat = 2;
+  double sicaklik = 3;
+  double lag_24h = 4;
+}
+
+
+message TahminYaniti {
+  double tahmin_mwh = 1;
+  string mesaj = 2;
+}

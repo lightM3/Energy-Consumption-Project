@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="TahminService" 
+    targetNamespace="http://tahmin.enerji.com/wsdl"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:tns="http://tahmin.enerji.com/wsdl"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <types>
+        <xsd:schema targetNamespace="http://tahmin.enerji.com/wsdl" 
+                    xmlns:xsd="http://www.w3.org/2001/XMLSchema"> 
+            
+            <xsd:element name="TahminYapIstek">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="tarih" type="xsd:string"/>
+                        <xsd:element name="saat" type="xsd:int"/>
+                        <xsd:element name="sicaklik" type="xsd:double"/>
+                        <xsd:element name="lag_24h" type="xsd:double"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            
+            <xsd:element name="TahminYapYanit">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="tahmin_mwh" type="xsd:double"/>
+                        <xsd:element name="mesaj" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            
+        </xsd:schema>
+    </types>
+
+    <message name="TahminYapIstekMesaj">
+        <part name="parameters" element="tns:TahminYapIstek"/>
+    </message>
+    <message name="TahminYapYanitMesaj">
+        <part name="parameters" element="tns:TahminYapYanit"/>
+    </message>
+
+    <portType name="TahminPort">
+        <operation name="TahminYap">
+            <input message="tns:TahminYapIstekMesaj"/>
+            <output message="tns:TahminYapYanitMesaj"/>
+        </operation>
+    </portType>
+
+    <binding name="TahminBinding" type="tns:TahminPort">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="TahminYap">
+            <soap:operation soapAction="TahminYap"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+
+    <service name="TahminService">
+        <port name="TahminPort" binding="tns:TahminBinding">
+            <soap:address location="http://localhost:5003/tahmin"/> 
+        </port>
+    </service>
+</definitions>
