@@ -10,7 +10,7 @@ from playwright.sync_api import sync_playwright
 FINAL_CSV_FILE = "Hava_Durumu_Verileri.csv"
 USER_DATA_DIR = "wunderground_chrome_profile"
 
-# Şehirler ve Kodları (Ankara Düzeltildi: Esenboğa/LTAC)
+# Şehirler ve Kodları
 CITIES = {
     'Istanbul': 'bakirkoy/LTBA',
     'Ankara':   'cubuk/LTAC',
@@ -18,8 +18,8 @@ CITIES = {
     'Erzurum':  'yakutiye/LTCE'
 }
 
-# Tarih Aralığı (Örnek: Son 100 gün)
-DAYS_TO_SCRAPE = 182
+# Tarih Aralığı
+DAYS_TO_SCRAPE = 500
 start_date = date.today() - timedelta(days=DAYS_TO_SCRAPE)
 end_date = date.today() - timedelta(days=1)
 
@@ -39,8 +39,7 @@ def clean_temp(temp_str):
 def run():
     print("🚀 Akıllı Hava Durumu Botu Başlatılıyor...")
     print(f"📅 Hedef: {start_date.strftime('%d.%m.%Y')} tarihinden başlayarak veri toplamak.")
-    print("ℹ️  İstediğiniz zaman durdurmak için terminalde 'Ctrl + C' yapabilirsiniz.")
-
+    
     # --- KONTROL: Mevcut verileri oku ---
     existing_dates = set()
     if os.path.exists(FINAL_CSV_FILE):
@@ -52,33 +51,41 @@ def run():
         except: pass
 
     with sync_playwright() as p:
+        # Eski ayarların (Hata vermemesi için locale ekledim sadece)
         browser = p.chromium.launch_persistent_context(
             user_data_dir=USER_DATA_DIR,
             headless=False,
             viewport={"width": 1280, "height": 900},
+            locale="en-US" # Saat formatı bozulmasın diye bu şart
         )
         page = browser.pages[0] if browser.pages else browser.new_page()
         
-        # İlk açılış beklemesi
         print("\n" + "="*60)
         print("🛑 BEKLEME MODU")
         print("Sayfa açılınca her şey yolundaysa buraya gelip ENTER'a basın.")
         print("="*60 + "\n")
         
-        # Test sayfası
-        page.goto(f"https://www.wunderground.com/history/daily/tr/cubuk/LTAC/date/{start_date.strftime('%Y-%m-%d')}", wait_until="domcontentloaded")
+        # Test sayfası (Buraya timeout ekledim ki hata verip kapanmasın)
+        try:
+            page.goto(
+                f"https://www.wunderground.com/history/daily/tr/cubuk/LTAC/date/{start_date.strftime('%Y-%m-%d')}", 
+                wait_until="domcontentloaded", 
+                timeout=60000
+            )
+        except:
+            print("⚠️ İlk sayfa yavaş açıldı ama devam ediliyor...")
+
         input("👉 Hazır olduğunuzda ENTER tuşuna basın...")
 
         all_weather_data = []
         current_date = start_date
 
-        try:  # --- ACİL DURDURMA BLOGU BAŞLANGICI ---
+        try:  # --- ACİL DURDURMA BLOGU ---
             
             while current_date <= end_date:
                 date_str_display = current_date.strftime("%d.%m.%Y")
                 date_str_url = current_date.strftime("%Y-%m-%d")
 
-                # Eğer bu tarih zaten dosyada varsa ve "Tam" ise atla
                 if current_date in existing_dates:
                     print(f"⏭️  {date_str_display} zaten var, atlanıyor.")
                     current_date += timedelta(days=1)
@@ -87,12 +94,12 @@ def run():
                 print(f"\n📆 TARİH İŞLENİYOR: {date_str_display}")
                 print("-" * 40)
 
-                # --- YENİ MANTIK: GÜN İÇİNDE ŞEHİRLERİ GEZ ---
                 for city_name, city_code in CITIES.items():
                     url = f"https://www.wunderground.com/history/daily/tr/{city_code}/date/{date_str_url}"
                     print(f"  📍 {city_name} verisi çekiliyor...", end="")
 
                     try:
+                        # wait_until="domcontentloaded" -> Bu çok önemli, sayfanın tam yüklenmesini beklemez, hızlı geçer.
                         page.goto(url, wait_until="domcontentloaded", timeout=45000)
                         
                         try:
@@ -106,8 +113,11 @@ def run():
                         
                         for row in rows:
                             try:
-                                time_val = row.locator("td").nth(0).inner_text().strip()
-                                temp_val = row.locator("td").nth(1).inner_text().strip()
+                                cells = row.locator("td").all()
+                                if len(cells) < 2: continue # Boş satır koruması
+
+                                time_val = cells[0].inner_text().strip()
+                                temp_val = cells[1].inner_text().strip()
                                 
                                 if time_val and temp_val:
                                     all_weather_data.append({
@@ -124,37 +134,42 @@ def run():
                     except Exception as e:
                         print(f" ❌ Hata: {e}")
                     
-                    # Şehirler arası kısa bekleme (Anti-bot)
                     time.sleep(1)
 
-                # Bir sonraki güne geç
                 current_date += timedelta(days=1)
                 
         except KeyboardInterrupt:
-            print("\n\n" + "!"*50)
-            print("🛑 KULLANICI TARAFINDAN DURDURULDU (Ctrl+C)")
-            print("💾 Şu ana kadar toplanan veriler kaydediliyor...")
-            print("!"*50 + "\n")
+            print("\n🛑 KULLANICI TARAFINDAN DURDURULDU (Ctrl+C)")
 
         # ======================================================================
-        # 4. VERİ İŞLEME VE KAYDETME
+        # 4. VERİ İŞLEME VE KAYDETME (DÜZELTİLEN KISIM BURASI)
         # ======================================================================
         
         if all_weather_data:
-            print("💾 Veriler işleniyor...")
+            print("💾 Veriler işleniyor ve EKSİKLER DOLDURULUYOR...")
             df = pd.DataFrame(all_weather_data)
             
             # Tarih/Saat Formatla
             df["DateTime_Str"] = df["Tarih"] + " " + df["Saat_Raw"]
-            df["DateTime"] = pd.to_datetime(df["DateTime_Str"], format="%d.%m.%Y %I:%M %p")
-            
+            # Hatalı tarih formatlarını yok say (coerce)
+            df["DateTime"] = pd.to_datetime(df["DateTime_Str"], format="%d.%m.%Y %I:%M %p", errors='coerce')
+            df = df.dropna(subset=["DateTime"])
+
             # Sıcaklık Dönüşümü (F -> C)
             df["Sicaklik_C"] = (df["Sicaklik_F"] - 32) * 5/9
             
-            # Pivot İşlemi
+            # --- EKSİK VERİ DOLDURMA (Interpolation) ---
             df.set_index("DateTime", inplace=True)
-            df_hourly = df.groupby("Sehir")["Sicaklik_C"].resample("h").mean().reset_index()
-            df_pivot = df_hourly.pivot(index="DateTime", columns="Sehir", values="Sicaklik_C").reset_index()
+            
+            # 1. Önce saatlik olarak grupla (Resample zaten eksik saatleri NaN olarak yaratır)
+            df_hourly = df.groupby("Sehir")["Sicaklik_C"].resample("h").mean()
+            
+            # 2. Şimdi NaN olan o eksik saatleri doldur (Linear Interpolation)
+            # limit=24: Eğer 24 saatten fazla veri yoksa orayı doldurma, salla olur çünkü.
+            df_hourly_filled = df_hourly.interpolate(method='linear', limit=24).reset_index()
+            
+            # Pivot İşlemi (Tabloyu genişletme)
+            df_pivot = df_hourly_filled.pivot(index="DateTime", columns="Sehir", values="Sicaklik_C").reset_index()
             
             # Sütun İsimleri ve Yuvarlama
             df_pivot.columns.name = None
