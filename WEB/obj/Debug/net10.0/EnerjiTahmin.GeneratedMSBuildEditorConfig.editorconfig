@@ -19,105 +19,109 @@ build_property.TargetFrameworkIdentifier = .NETCoreApp
 build_property.TargetFrameworkVersion = v10.0
 build_property.RootNamespace = EnerjiTahmin
 build_property.RootNamespace = EnerjiTahmin
-build_property.ProjectDir = C:\Users\27met\OneDrive\Masaüstü\Energy-Consumption-Project\WEB\EnerjiTahmin\
+build_property.ProjectDir = C:\Users\muata\OneDrive\Desktop\Energy-Consumption-Project\WEB\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 9.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\27met\OneDrive\Masaüstü\Energy-Consumption-Project\WEB\EnerjiTahmin
+build_property.MSBuildProjectDirectory = C:\Users\muata\OneDrive\Desktop\Energy-Consumption-Project\WEB
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 10.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/27met/OneDrive/Masaüstü/Energy-Consumption-Project/WEB/EnerjiTahmin/Views/Account/ForgotPassword.cshtml]
+[C:/Users/muata/OneDrive/Desktop/Energy-Consumption-Project/WEB/Views/Account/ForgotPassword.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxGb3Jnb3RQYXNzd29yZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/27met/OneDrive/Masaüstü/Energy-Consumption-Project/WEB/EnerjiTahmin/Views/Account/Login.cshtml]
+[C:/Users/muata/OneDrive/Desktop/Energy-Consumption-Project/WEB/Views/Account/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/27met/OneDrive/Masaüstü/Energy-Consumption-Project/WEB/EnerjiTahmin/Views/Account/Profile.cshtml]
+[C:/Users/muata/OneDrive/Desktop/Energy-Consumption-Project/WEB/Views/Account/Profile.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxQcm9maWxlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/27met/OneDrive/Masaüstü/Energy-Consumption-Project/WEB/EnerjiTahmin/Views/Account/Register.cshtml]
+[C:/Users/muata/OneDrive/Desktop/Energy-Consumption-Project/WEB/Views/Account/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/27met/OneDrive/Masaüstü/Energy-Consumption-Project/WEB/EnerjiTahmin/Views/Admin/Index.cshtml]
+[C:/Users/muata/OneDrive/Desktop/Energy-Consumption-Project/WEB/Views/Admin/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/27met/OneDrive/Masaüstü/Energy-Consumption-Project/WEB/EnerjiTahmin/Views/Admin/Kullanicilar.cshtml]
+[C:/Users/muata/OneDrive/Desktop/Energy-Consumption-Project/WEB/Views/Admin/Kullanicilar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cS3VsbGFuaWNpbGFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/27met/OneDrive/Masaüstü/Energy-Consumption-Project/WEB/EnerjiTahmin/Views/Admin/Loglar.cshtml]
+[C:/Users/muata/OneDrive/Desktop/Energy-Consumption-Project/WEB/Views/Admin/Loglar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTG9nbGFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/27met/OneDrive/Masaüstü/Energy-Consumption-Project/WEB/EnerjiTahmin/Views/Bilgi/Index.cshtml]
+[C:/Users/muata/OneDrive/Desktop/Energy-Consumption-Project/WEB/Views/Bilgi/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmlsZ2lcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/27met/OneDrive/Masaüstü/Energy-Consumption-Project/WEB/EnerjiTahmin/Views/Hakkında/Index.cshtml]
+[C:/Users/muata/OneDrive/Desktop/Energy-Consumption-Project/WEB/Views/Hakkında/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSGFra8SxbmRhXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/27met/OneDrive/Masaüstü/Energy-Consumption-Project/WEB/EnerjiTahmin/Views/Home/Alerts.cshtml]
+[C:/Users/muata/OneDrive/Desktop/Energy-Consumption-Project/WEB/Views/Home/Alerts.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBbGVydHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/27met/OneDrive/Masaüstü/Energy-Consumption-Project/WEB/EnerjiTahmin/Views/Home/CityStats.cshtml]
+[C:/Users/muata/OneDrive/Desktop/Energy-Consumption-Project/WEB/Views/Home/CityStats.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDaXR5U3RhdHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/27met/OneDrive/Masaüstü/Energy-Consumption-Project/WEB/EnerjiTahmin/Views/Home/DailyStats.cshtml]
+[C:/Users/muata/OneDrive/Desktop/Energy-Consumption-Project/WEB/Views/Home/DailyStats.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxEYWlseVN0YXRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/27met/OneDrive/Masaüstü/Energy-Consumption-Project/WEB/EnerjiTahmin/Views/Home/Index.cshtml]
+[C:/Users/muata/OneDrive/Desktop/Energy-Consumption-Project/WEB/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/27met/OneDrive/Masaüstü/Energy-Consumption-Project/WEB/EnerjiTahmin/Views/Iletisim/Index.cshtml]
+[C:/Users/muata/OneDrive/Desktop/Energy-Consumption-Project/WEB/Views/Iletisim/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSWxldGlzaW1cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/27met/OneDrive/Masaüstü/Energy-Consumption-Project/WEB/EnerjiTahmin/Views/NasilCalisir/Index.cshtml]
+[C:/Users/muata/OneDrive/Desktop/Energy-Consumption-Project/WEB/Views/NasilCalisir/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTmFzaWxDYWxpc2lyXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/27met/OneDrive/Masaüstü/Energy-Consumption-Project/WEB/EnerjiTahmin/Views/Report/Index.cshtml]
+[C:/Users/muata/OneDrive/Desktop/Energy-Consumption-Project/WEB/Views/Report/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVwb3J0XEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/27met/OneDrive/Masaüstü/Energy-Consumption-Project/WEB/EnerjiTahmin/Views/Shared/Error.cshtml]
+[C:/Users/muata/OneDrive/Desktop/Energy-Consumption-Project/WEB/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/27met/OneDrive/Masaüstü/Energy-Consumption-Project/WEB/EnerjiTahmin/Views/Shared/_AdminLayout.cshtml]
+[C:/Users/muata/OneDrive/Desktop/Energy-Consumption-Project/WEB/Views/Shared/_AdminLayout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BZG1pbkxheW91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/27met/OneDrive/Masaüstü/Energy-Consumption-Project/WEB/EnerjiTahmin/Views/Shared/_FooterLayout.cshtml]
+[C:/Users/muata/OneDrive/Desktop/Energy-Consumption-Project/WEB/Views/Shared/_FooterLayout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Gb290ZXJMYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/27met/OneDrive/Masaüstü/Energy-Consumption-Project/WEB/EnerjiTahmin/Views/Shared/_Layout.cshtml]
+[C:/Users/muata/OneDrive/Desktop/Energy-Consumption-Project/WEB/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/27met/OneDrive/Masaüstü/Energy-Consumption-Project/WEB/EnerjiTahmin/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/muata/OneDrive/Desktop/Energy-Consumption-Project/WEB/Views/Shared/_UserMenuPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Vc2VyTWVudVBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/muata/OneDrive/Desktop/Energy-Consumption-Project/WEB/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/27met/OneDrive/Masaüstü/Energy-Consumption-Project/WEB/EnerjiTahmin/Views/Tahmin/Index.cshtml]
+[C:/Users/muata/OneDrive/Desktop/Energy-Consumption-Project/WEB/Views/Tahmin/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFobWluXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/27met/OneDrive/Masaüstü/Energy-Consumption-Project/WEB/EnerjiTahmin/Views/_ViewImports.cshtml]
+[C:/Users/muata/OneDrive/Desktop/Energy-Consumption-Project/WEB/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

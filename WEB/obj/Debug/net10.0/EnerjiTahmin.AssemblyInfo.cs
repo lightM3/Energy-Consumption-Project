@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EnerjiTahmin")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8513168cec289f0a4221c40c1968cf8a39e816b4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+81490155ffc63444826a689f9b141181a9defd63")]
 [assembly: System.Reflection.AssemblyProductAttribute("EnerjiTahmin")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EnerjiTahmin")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
