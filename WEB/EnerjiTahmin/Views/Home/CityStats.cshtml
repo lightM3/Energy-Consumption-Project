@@ -1,0 +1,46 @@
+@model List<EnerjiTahmin.Models.CityTempView>
+@{
+    ViewData["Title"] = "Şehir Sıcaklık İstatistikleri";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">🌡️ Şehir Sıcaklık Ortalamaları</h2>
+    
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <table class="table table-hover table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Şehir Adı</th>
+                        <th>Ortalama Sıcaklık (°C)</th>
+                        <th>Durum</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.CityName</td>
+                            <td>@item.AvgTemp.ToString("0.0") °C</td>
+                            <td>
+                                @if (item.AvgTemp > 25)
+                                {
+                                    <span class="badge bg-danger">Sıcak 🔥</span>
+                                }
+                                else if (item.AvgTemp < 10)
+                                {
+                                    <span class="badge bg-info text-dark">Soğuk ❄️</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-success">Ilıman 🌤️</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

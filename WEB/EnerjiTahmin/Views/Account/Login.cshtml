@@ -1,0 +1,120 @@
+@{
+    Layout = null;
+    ViewData["Title"] = "Giriş Yap";
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Giriş Yap - EnergySys AI</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Inter', sans-serif; height: 100vh; overflow: hidden; }
+        .login-container { height: 100vh; }
+        
+        .bg-image-section {
+            background-image: url('https://images.unsplash.com/photo-1509391366360-2e959784a276?q=80&w=2072&auto=format&fit=crop');
+            background-size: cover; background-position: center; position: relative;
+        }
+
+        .bg-overlay {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, rgba(5, 150, 105, 0.85), rgba(15, 23, 42, 0.95));
+            display: flex; flex-direction: column; justify-content: center; padding: 4rem; color: white;
+        }
+
+        .form-control { padding: 12px; border-radius: 8px; background-color: #f8f9fa; border: 1px solid #e9ecef; }
+        .form-control:focus { background-color: #fff; box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.15); border-color: #10b981; }
+        
+        .btn-energy { background-color: #0f766e; color: white; padding: 12px; border-radius: 8px; font-weight: 600; border: none; transition: background-color 0.2s; }
+        .btn-energy:hover { background-color: #0d9488; color: white; }
+        
+        .social-btn { border: 1px solid #e9ecef; background: white; padding: 10px; border-radius: 8px; color: #555; transition: all 0.2s; }
+        .social-btn:hover { background: #f8f9fa; color: #000; transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+
+    <div class="container-fluid g-0 login-container">
+        <div class="row g-0 h-100">
+            <div class="col-lg-6 d-none d-lg-block bg-image-section">
+                <div class="bg-overlay">
+                    <div class="mb-4">
+                        <div class="d-inline-flex align-items-center justify-content-center bg-white bg-opacity-25 rounded-circle" style="width: 60px; height: 60px;">
+                             <i class="bi bi-lightning-charge-fill fs-3 text-white"></i>
+                        </div>
+                    </div>
+                    <h1 class="display-4 fw-bold mb-3">Enerjiyi Yönet. <br>Geleceği Tasarla.</h1>
+                    <p class="lead opacity-75">
+                        Yapay zeka destekli enerji yönetim sistemi ile verilerinizi güce dönüştürün.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-6 d-flex align-items-center justify-content-center bg-white">
+                <div class="w-100 p-5" style="max-width: 500px;">
+                    
+                    <div class="text-center mb-5">
+                        <h3 class="fw-bold text-dark">Sisteme Giriş</h3>
+                        <p class="text-secondary small">Devam etmek için kurumsal hesabınızı kullanın.</p>
+                    </div>
+
+                    @if (ViewBag.Error != null)
+                    {
+                        <div class="alert alert-danger text-center small p-2 mb-4">
+                            <i class="bi bi-exclamation-circle me-1"></i> @ViewBag.Error
+                        </div>
+                    }
+
+                    <div class="row g-2 mb-4">
+                        <div class="col"><button class="btn social-btn w-100"><i class="bi bi-google me-2"></i> Google</button></div>
+                        <div class="col"><button class="btn social-btn w-100"><i class="bi bi-microsoft me-2"></i> Microsoft</button></div>
+                    </div>
+
+                    <div class="position-relative mb-4">
+                        <hr class="text-secondary opacity-25">
+                        <span class="position-absolute top-50 start-50 translate-middle bg-white px-3 text-secondary small">veya e-posta ile</span>
+                    </div>
+
+                    <form action="/Account/Login" method="post">
+                        <div class="mb-3">
+                            <label class="form-label text-secondary small fw-bold">E-posta Adresi</label>
+                            <input type="email" class="form-control" name="email" placeholder="admin@enerji.com" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between">
+                                <label class="form-label text-secondary small fw-bold">Şifre</label>
+                                <a href="/Account/ForgotPassword" class="text-decoration-none small text-success fw-bold">Unuttum?</a>
+                            </div>
+                            <input type="password" class="form-control" name="password" placeholder="••••••••" required>
+                        </div>
+
+                        <div class="form-check mb-4">
+                            <input class="form-check-input" type="checkbox" id="rememberMe">
+                            <label class="form-check-label text-secondary small" for="rememberMe">Beni hatırla</label>
+                        </div>
+
+                        <button type="submit" class="btn btn-energy w-100 shadow-sm">
+                            <i class="bi bi-box-arrow-in-right me-2"></i> Güvenli Giriş Yap
+                        </button>
+                    </form>
+
+                    <div class="text-center mt-4">
+                        <p class="small text-secondary">
+                            Henüz hesabınız yok mu? 
+                            <a href="/Account/Register" class="text-success fw-bold text-decoration-none">Hesap Oluştur</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

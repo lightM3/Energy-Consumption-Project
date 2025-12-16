@@ -1,0 +1,80 @@
+﻿@{
+    ViewData["Title"] = "Ana Sayfa";
+    Layout = "_Layout";
+}
+
+<div class="position-relative w-100 d-flex align-items-center justify-content-center text-center text-white" 
+     style="height: 600px; background-image: url('https://images.unsplash.com/photo-1509391366360-2e959784a276?q=80&w=2072&auto=format&fit=crop'); background-size: cover; background-position: center;">
+    
+    <div class="position-absolute top-0 start-0 w-100 h-100" 
+         style="background: linear-gradient(135deg, rgba(15, 118, 110, 0.85), rgba(15, 23, 42, 0.9));"></div>
+
+    <div class="container position-relative z-1">
+        <span class="badge bg-white text-success mb-3 px-3 py-2 rounded-pill fw-bold">v1.0 Beta Yayında</span>
+        <h1 class="display-3 fw-bold mb-3">Enerjiyi Yapay Zeka ile <br> <span style="color: #34d399;">Yönetin</span></h1>
+        <p class="lead mb-5 mx-auto opacity-75" style="max-width: 700px;">
+            Geçmiş verileri analiz ederek gelecekteki enerji ihtiyaçlarını %98 doğrulukla tahmin eden akıllı karar destek sistemi.
+        </p>
+        <div class="d-flex justify-content-center gap-3">
+            <a href="/Tahmin/Index" class="btn btn-light text-success btn-lg rounded-pill px-5 fw-bold shadow-lg">
+                <i class="bi bi-play-fill me-1"></i> Tahmin Başlat
+            </a>
+            <a href="/NasilCalisir/Index" class="btn btn-outline-light btn-lg rounded-pill px-5 fw-bold">
+                Nasıl Çalışır?
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="container py-5 mt-5">
+    <div class="text-center mb-5">
+        <h6 class="text-success fw-bold text-uppercase ls-1">Proje Ekibi</h6>
+        <h2 class="fw-bold">Geliştirici Kadro</h2>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-6 col-lg-3">
+            <div class="card h-100 p-4 text-center">
+                <div class="mx-auto mb-3 p-3 rounded-circle bg-success bg-opacity-10 text-success" style="width: 80px; height: 80px; display: grid; place-items: center;">
+                    <i class="bi bi-window-desktop fs-2"></i>
+                </div>
+                <h5 class="fw-bold">Metin Serinkaya</h5>
+                <p class="text-muted small mb-2">İleri Web Programlama</p>
+                <span class="badge bg-success bg-opacity-10 text-success">Frontend & Backend</span>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+            <div class="card h-100 p-4 text-center">
+                <div class="mx-auto mb-3 p-3 rounded-circle bg-info bg-opacity-10 text-info" style="width: 80px; height: 80px; display: grid; place-items: center;">
+                    <i class="bi bi-cpu fs-2"></i>
+                </div>
+                <h5 class="fw-bold">Murat Bayrak</h5>
+                <p class="text-muted small mb-2">Makine Öğrenmesi</p>
+                <span class="badge bg-info bg-opacity-10 text-info">AI Model & Python</span>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+            <div class="card h-100 p-4 text-center">
+                <div class="mx-auto mb-3 p-3 rounded-circle bg-warning bg-opacity-10 text-warning" style="width: 80px; height: 80px; display: grid; place-items: center;">
+                    <i class="bi bi-hdd-network fs-2"></i>
+                </div>
+                <h5 class="fw-bold">Mustafa Gürhan</h5>
+                <p class="text-muted small mb-2">Servis Odaklı Mimari</p>
+                <span class="badge bg-warning bg-opacity-10 text-warning">API & Services</span>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+            <div class="card h-100 p-4 text-center">
+                <div class="mx-auto mb-3 p-3 rounded-circle bg-danger bg-opacity-10 text-danger" style="width: 80px; height: 80px; display: grid; place-items: center;">
+                    <i class="bi bi-database fs-2"></i>
+                </div>
+                <h5 class="fw-bold">Mustafa İnce</h5>
+                <p class="text-muted small mb-2">Veritabanı Yönetimi</p>
+                <span class="badge bg-danger bg-opacity-10 text-danger">SQL & Data Security</span>
+            </div>
+        </div>
+    </div>
+</div>

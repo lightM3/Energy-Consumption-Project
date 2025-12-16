@@ -1,0 +1,117 @@
+@{
+    ViewData["Title"] = "Nasıl Çalışır?";
+    Layout = "_Layout";
+}
+
+<div class="container py-5 text-center">
+    <h6 class="text-success fw-bold text-uppercase ls-1">Sistem Mimarisi</h6>
+    <h1 class="display-4 fw-bold mb-4">Veriden Tahmine <br> <span class="text-success">4 Adımda Yolculuk</span></h1>
+    <p class="lead text-secondary mx-auto" style="max-width: 700px;">
+        EnergySys AI, kullanıcı girdilerini ve geçmiş veritabanı kayıtlarını birleştirerek 
+        yapay zeka modeline sunar ve anlık sonuç üretir.
+    </p>
+</div>
+
+<div class="container mb-5">
+    <div class="row g-4">
+        
+        <div class="col-md-6 col-lg-3">
+            <div class="card h-100 border-0 shadow-sm p-4 text-center step-card">
+                <div class="step-icon bg-success bg-opacity-10 text-success mx-auto mb-3">
+                    <span class="fw-bold fs-3">1</span>
+                </div>
+                <h5 class="fw-bold">Veri Girişi</h5>
+                <p class="text-muted small">
+                    Kullanıcı web arayüzünden tarih, saat ve tahmini hava sıcaklığı bilgisini girer.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+            <div class="card h-100 border-0 shadow-sm p-4 text-center step-card">
+                <div class="step-icon bg-success bg-opacity-10 text-success mx-auto mb-3">
+                    <span class="fw-bold fs-3">2</span>
+                </div>
+                <h5 class="fw-bold">Veritabanı Sorgusu</h5>
+                <p class="text-muted small">
+                    Backend, girilen tarihten tam 24 saat öncesine giderek SQL veritabanından <code>lag_24h</code> (geçmiş tüketim) verisini çeker.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+            <div class="card h-100 border-0 shadow-sm p-4 text-center step-card">
+                <div class="step-icon bg-success bg-opacity-10 text-success mx-auto mb-3">
+                    <span class="fw-bold fs-3">3</span>
+                </div>
+                <h5 class="fw-bold">AI Analizi</h5>
+                <p class="text-muted small">
+                    Toplanan veriler bir JSON paketine dönüştürülür ve Python tabanlı Makine Öğrenmesi modeline iletilir.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+            <div class="card h-100 border-0 shadow-sm p-4 text-center step-card">
+                <div class="step-icon bg-success bg-opacity-10 text-success mx-auto mb-3">
+                    <span class="fw-bold fs-3">4</span>
+                </div>
+                <h5 class="fw-bold">Sonuç & Rapor</h5>
+                <p class="text-muted small">
+                    Modelin ürettiği tahmin değeri, saniyeler içinde kullanıcı ekranına yansıtılır.
+                </p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="bg-dark text-white py-5 rounded-4 container mb-5 position-relative overflow-hidden">
+    <div class="position-absolute top-0 end-0 p-5 opacity-10">
+        <i class="bi bi-code-slash display-1"></i>
+    </div>
+
+    <div class="row align-items-center position-relative z-1 px-4">
+        <div class="col-lg-5 mb-4 mb-lg-0">
+            <h3 class="fw-bold text-success">Veri Yapısı</h3>
+            <p class="opacity-75">
+                Frontend ve AI Modeli arasında dolaşan veri paketi (JSON), 
+                SOA standartlarına uygun olarak şu formatta hazırlanır:
+            </p>
+            <ul class="list-unstyled mt-4">
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> <strong>Tarih:</strong> Kullanıcıdan alınır</li>
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> <strong>Saat:</strong> Integer formatına çevrilir</li>
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> <strong>Lag_24h:</strong> MSSQL'den çekilir</li>
+            </ul>
+        </div>
+        <div class="col-lg-7">
+            <div class="bg-black bg-opacity-50 p-4 rounded-3 border border-secondary border-opacity-25 font-monospace small shadow-lg">
+<pre class="m-0" style="color: #a5b4fc;">
+{
+  <span style="color: #6ee7b7;">"tarih"</span>: <span style="color: #fcd34d;">"2025-12-02"</span>,
+  <span style="color: #6ee7b7;">"saat"</span>: <span style="color: #fcd34d;">14</span>,
+  <span style="color: #6ee7b7;">"sicaklik"</span>: <span style="color: #fcd34d;">15.5</span>,
+  <span style="color: #6ee7b7;">"lag_24h"</span>: <span style="color: #fcd34d;">34500.20</span> <span style="color: #9ca3af;">// Veritabanından gelen kritik veri</span>
+}
+</pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .step-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .step-card {
+        transition: transform 0.3s ease;
+    }
+    .step-card:hover {
+        transform: translateY(-5px);
+    }
+</style>

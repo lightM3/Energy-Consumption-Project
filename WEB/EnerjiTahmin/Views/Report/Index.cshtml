@@ -1,0 +1,100 @@
+@model List<EnerjiTahmin.Models.TuketimVerisi>
+
+@{
+    ViewData["Title"] = "Detaylı Tarih Raporu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container py-5">
+    
+    <div class="text-center mb-5">
+        <h2 class="fw-bold text-primary">📑 Detaylı Tüketim Raporu</h2>
+        <p class="text-muted">Belirli tarih aralığındaki enerji tüketim verilerini inceleyin.</p>
+    </div>
+
+    <div class="card shadow-sm border-0 mb-4" style="border-radius: 15px;">
+        <div class="card-body p-4 bg-light" style="border-radius: 15px;">
+            <form action="/Report/Index" method="get">
+                <div class="row align-items-end g-3">
+                    
+                    <div class="col-md-4">
+                        <label class="form-label fw-bold small text-secondary">Başlangıç Tarihi</label>
+                        <input type="date" name="baslangic" class="form-control shadow-sm" 
+                               value="@ViewBag.Baslangic" required>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label fw-bold small text-secondary">Bitiş Tarihi</label>
+                        <input type="date" name="bitis" class="form-control shadow-sm" 
+                               value="@ViewBag.Bitis" required>
+                    </div>
+
+                    <div class="col-md-4">
+                        <button type="submit" class="btn btn-primary w-100 shadow-sm">
+                            <i class="bi bi-filter"></i> Verileri Getir
+                        </button>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+    @if (Model != null && Model.Count > 0)
+    {
+        <div class="card shadow border-0" style="border-radius: 15px; overflow: hidden;">
+            <div class="card-header bg-white p-3 border-bottom">
+                <span class="badge bg-success rounded-pill px-3">@Model.Count Kayıt Bulundu</span>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="bg-light text-secondary small text-uppercase">
+                        <tr>
+                            <th class="ps-4 py-3">Tarih</th>
+                            <th>Saat</th>
+                            <th>Tüketim Miktarı</th>
+                            <th>Durum</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="ps-4 fw-bold text-dark">@item.Tarih.ToString("dd.MM.yyyy")</td>
+                                <td class="text-muted">
+                                    <i class="bi bi-clock me-1"></i> @item.Saat
+                                </td>
+                                
+                                <td>
+                                    <span class="fw-bold text-primary">@item.TuketimMiktari.ToString("N2") MWh</span>
+                                </td>
+                                
+                                <td>
+                                    @if (item.TuketimMiktari > 35000) 
+                                    {
+                                        <span class="badge bg-danger bg-opacity-10 text-danger">Yüksek</span>
+                                    }
+                                    else if (item.TuketimMiktari < 25000)
+                                    {
+                                        <span class="badge bg-success bg-opacity-10 text-success">Düşük</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-warning bg-opacity-10 text-warning">Normal</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning text-center mt-4 border-0 shadow-sm" role="alert">
+            <i class="bi bi-exclamation-triangle me-2"></i> 
+            Seçilen tarih aralığında gösterilecek veri bulunamadı.
+        </div>
+    }
+</div>

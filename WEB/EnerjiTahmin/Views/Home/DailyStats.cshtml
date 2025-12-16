@@ -1,0 +1,131 @@
+@model List<EnerjiTahmin.Models.DailySummaryView>
+
+@{
+    ViewData["Title"] = "Günlük Tüketim İstatistikleri";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .glass-card {
+        background: #fff;
+        border: none;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+    }
+    
+    .table-hover tbody tr {
+        transition: all 0.3s ease;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #fffbf0; /* Hafif sarımsı hover rengi */
+        transform: scale(1.01);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        z-index: 10;
+        position: relative;
+    }
+
+    .date-box {
+        background-color: #f8f9fa;
+        border-radius: 12px;
+        padding: 8px 15px;
+        text-align: center;
+        min-width: 80px;
+        border: 1px solid #e9ecef;
+    }
+
+    .day-text { font-size: 1.2rem; font-weight: 800; color: #343a40; line-height: 1; }
+    .month-text { font-size: 0.75rem; text-transform: uppercase; color: #6c757d; font-weight: 600; }
+
+    .consumption-value {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #2d3436;
+    }
+    
+    .unit-text { font-size: 0.85rem; color: #b2bec3; font-weight: 500; }
+
+    /* Modern Progress Bar */
+    .progress-container {
+        height: 12px;
+        background-color: #edf2f7;
+        border-radius: 20px;
+        overflow: hidden;
+        margin-top: 6px;
+    }
+    
+    .progress-fill {
+        height: 100%;
+        border-radius: 20px;
+        background: linear-gradient(90deg, #f1c40f, #e67e22); /* Enerji Sarısı -> Turuncu */
+        transition: width 1s ease-in-out;
+    }
+</style>
+
+<div class="container py-5">
+    <div class="row mb-4 text-center">
+        <div class="col-12">
+            <h2 class="fw-bold text-dark">📊 Enerji Tüketim Analizi</h2>
+            <p class="text-muted">Son 30 günün günlük tüketim performans raporu</p>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-9">
+            <div class="glass-card">
+                <div class="p-4 border-bottom bg-light d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0 fw-bold text-secondary">📅 Günlük Döküm</h5>
+                    <span class="badge bg-primary rounded-pill px-3">Son 30 Gün</span>
+                </div>
+
+                <div class="p-0">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="bg-white text-muted small text-uppercase">
+                            <tr>
+                                <th class="ps-4 py-3" style="width: 25%;">Tarih</th>
+                                <th class="py-3" style="width: 75%;">Tüketim Durumu</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                // Yüzdelik hesaplama (Maksimum 10.000 MWh varsayılarak)
+                                var percent = Math.Min(100, (double)item.TotalConsumption / 100); 
+                                
+                                <tr style="cursor: pointer;">
+                                    <td class="ps-4 py-3">
+                                        <div class="d-flex align-items-center">
+                                            <div class="date-box me-3">
+                                                <div class="day-text">@item.Date.Day</div>
+                                                <div class="month-text">@item.Date.ToString("MMM")</div>
+                                            </div>
+                                            <div class="d-none d-sm-block text-muted small">
+                                                @item.Date.DayOfWeek <br> @item.Date.Year
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td class="pe-4">
+                                        <div class="d-flex justify-content-between align-items-end mb-1">
+                                            <span class="consumption-value">
+                                                @item.TotalConsumption.ToString("N2") 
+                                                <span class="unit-text">MWh</span>
+                                            </span>
+                                            <small class="text-muted fw-bold">@percent.ToString("0")% Kapasite</small>
+                                        </div>
+
+                                        <div class="progress-container">
+                                            <div class="progress-fill shadow-sm" style="width: @percent%;"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

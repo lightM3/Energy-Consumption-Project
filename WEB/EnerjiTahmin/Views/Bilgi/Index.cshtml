@@ -1,0 +1,144 @@
+@{
+    ViewData["Title"] = "Enerji Rehberi";
+    Layout = "_Layout";
+}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<div class="bg-dark text-white rounded-4 p-5 mb-5 position-relative overflow-hidden">
+    <div class="position-relative z-1">
+        <h1 class="display-4 fw-bold">Bilinçli Tüketim, <span class="text-success">Sürdürülebilir Gelecek</span></h1>
+        <p class="lead opacity-75" style="max-width: 600px;">
+            Enerji kaynaklarını verimli kullanmak sadece faturanızı düşürmez, gezegenimizin geleceğini de korur. 
+            İşte yapay zeka ve bilinçli tüketimin kesiştiği nokta.
+        </p>
+    </div>
+    <i class="bi bi-lightbulb-fill position-absolute top-0 end-0 text-warning opacity-10" style="font-size: 15rem; transform: rotate(30deg);"></i>
+</div>
+
+<div class="container">
+    <div class="row g-5">
+        
+        <div class="col-lg-8">
+            <h3 class="fw-bold mb-4 text-success"><i class="bi bi-book-half me-2"></i>Tasarruf Rehberi</h3>
+            
+            <div class="accordion shadow-sm" id="accordionExample">
+                
+                <div class="accordion-item border-0 mb-3 rounded overflow-hidden">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                            <i class="bi bi-house-gear-fill me-2 text-primary"></i> Evde Enerji Yönetimi
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                        <div class="accordion-body text-secondary">
+                            Evsel tüketimde en büyük pay ısıtma ve soğutmaya aittir. 
+                            <ul>
+                                <li>Isı yalıtımı yaparak %40'a varan tasarruf sağlanabilir.</li>
+                                <li>LED ampuller, klasik ampullere göre %80 daha az enerji harcar.</li>
+                                <li>Beyaz eşyada A+++ sınıfı tercih etmek uzun vadede kazançtır.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item border-0 mb-3 rounded overflow-hidden">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                            <i class="bi bi-cpu-fill me-2 text-danger"></i> Yapay Zeka ve Enerji
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body text-secondary">
+                            Geliştirdiğimiz <strong>EnergySys AI</strong> gibi sistemler, geçmiş verileri analiz ederek gereksiz tüketimi önceden tahmin eder.
+                            Akıllı şebekeler (Smart Grids), talebin yoğun olduğu saatlerde yükü dengeleyerek kesintileri önler.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item border-0 mb-3 rounded overflow-hidden">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+                            <i class="bi bi-globe-americas me-2 text-success"></i> Küresel Etki
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body text-secondary">
+                            Karbon ayak izimizi azaltmak için fosil yakıtlardan yenilenebilir enerjiye geçiş şarttır. 
+                            Dijital dönüşüm ve veri analitiği, bu geçiş sürecini hızlandıran en önemli araçlardır.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="fw-bold mb-3">Küresel Tüketim Dağılımı</h5>
+                    <p class="text-muted small">Dünya genelinde enerji kaynaklarının kullanım oranları.</p>
+                    
+                    <div class="rounded-3 overflow-hidden border bg-white p-2">
+                        <canvas id="kureselGrafik" height="250"></canvas>
+                    </div>
+                    
+                    <div class="mt-2 text-center">
+                        <span class="badge bg-light text-dark border">Kaynak: World Energy Data (2024)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-4 rounded-4 text-white" style="background: linear-gradient(135deg, #059669 0%, #047857 100%);">
+                <i class="bi bi-lightbulb fs-1 mb-2 text-warning"></i>
+                <h5 class="fw-bold">Biliyor muydunuz?</h5>
+                <p class="small opacity-75 mb-0">
+                    Sadece fişleri prizden çekerek (Stand-by modu) yıllık elektrik faturanızda %5 ile %10 arasında tasarruf sağlayabilirsiniz.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var ctx = document.getElementById('kureselGrafik').getContext('2d');
+        
+        new Chart(ctx, {
+            type: 'doughnut', // Pasta Grafik (Doughnut)
+            data: {
+                labels: ['Fosil Yakıtlar', 'Yenilenebilir', 'Nükleer', 'Diğer'],
+                datasets: [{
+                    data: [60, 25, 10, 5], // Örnek Veriler
+                    backgroundColor: [
+                        '#334155', // Koyu Gri (Fosil)
+                        '#10b981', // Yeşil (Yenilenebilir)
+                        '#f59e0b', // Turuncu (Nükleer)
+                        '#94a3b8'  // Açık Gri (Diğer)
+                    ],
+                    borderWidth: 0,
+                    hoverOffset: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            usePointStyle: true,
+                            font: { size: 11, family: 'Inter' }
+                        }
+                    },
+                    tooltip: {
+                        enabled: true
+                    }
+                },
+                cutout: '70%', // Ortadaki boşluk oranı
+            }
+        });
+    });
+</script>

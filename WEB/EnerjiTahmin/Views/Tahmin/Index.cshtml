@@ -1,0 +1,265 @@
+@{
+    ViewData["Title"] = "AI Tahmin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    /* Modern Kart Efektleri */
+    .glass-card {
+        background: linear-gradient(135deg, rgba(15, 118, 110, 0.95), rgba(15, 23, 42, 0.95));
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+    
+    .detail-box {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        padding: 15px;
+        transition: transform 0.2s;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .detail-box:hover {
+        transform: translateY(-3px);
+        background: rgba(255, 255, 255, 0.15);
+    }
+
+    /* Yükleniyor Animasyonu */
+    .pulsing-circle {
+        width: 15px;
+        height: 15px;
+        background-color: #34d399;
+        border-radius: 50%;
+        animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+    }
+    
+    @@keyframes pulse-ring {
+        0% { transform: scale(0.33); opacity: 1; }
+        80%, 100% { transform: scale(2); opacity: 0; }
+    }
+</style>
+
+<div class="container py-5">
+    <div class="row g-5 align-items-stretch">
+        
+        <div class="col-lg-5">
+            <div class="card border-0 shadow-sm rounded-4 h-100">
+                <div class="card-body p-5">
+                    <div class="mb-4">
+                        <span class="badge bg-success bg-opacity-10 text-success mb-2 px-3 py-2 rounded-pill">Yapay Zeka Modeli v1.0</span>
+                        <h2 class="fw-bold text-dark">Veri Girişi</h2>
+                        <p class="text-secondary">Tahmin için gerekli parametreleri giriniz.</p>
+                    </div>
+
+                    <form id="tahminForm">
+                        <div class="mb-4">
+                            <label class="form-label text-muted small fw-bold">TARİH</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-0"><i class="bi bi-calendar-date"></i></span>
+                                <input type="date" class="form-control form-control-lg bg-light border-0" id="tarih">
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label text-muted small fw-bold">SAAT</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-0"><i class="bi bi-clock"></i></span>
+                                <select class="form-select form-select-lg bg-light border-0" id="saat">
+                                    @for (int i = 0; i < 24; i++)
+                                    {
+                                        <option value="@i.ToString("00"):00">@i.ToString("00"):00</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label text-muted small fw-bold">SICAKLIK (°C)</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-0"><i class="bi bi-thermometer-half"></i></span>
+                                <input type="number" class="form-control form-control-lg bg-light border-0" id="sicaklik" step="0.1" placeholder="Örn: 15.5">
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn btn-dark w-100 py-3 rounded-3 fw-bold mt-2" onclick="verileriGonder()">
+                            <i class="bi bi-stars me-2 text-warning"></i> Analiz Et
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-7">
+            <div class="card border-0 rounded-4 h-100 glass-card text-white overflow-hidden position-relative">
+                
+                <div class="position-absolute top-0 end-0 p-5 opacity-25">
+                    <i class="bi bi-graph-up-arrow display-1"></i>
+                </div>
+
+                <div class="card-body p-5 d-flex flex-column justify-content-center text-center">
+                    
+                    <div id="baslangicDurumu" class="py-5">
+                        <div class="mb-4">
+                            <i class="bi bi-cpu-fill fs-1 opacity-50"></i>
+                        </div>
+                        <h3 class="fw-bold">AI Analizi Bekleniyor</h3>
+                        <p class="opacity-75">Sol taraftaki formdan verileri girerek yapay zekayı çalıştırın.</p>
+                    </div>
+
+                    <div id="yukleniyor" style="display:none;" class="py-5">
+                        <div class="spinner-border text-info mb-4" style="width: 3rem; height: 3rem;" role="status"></div>
+                        <h4 class="fw-bold">Veriler İşleniyor...</h4>
+                        <p class="small opacity-75">Yapay zeka motoru hesaplama yapıyor...</p>
+                    </div>
+
+                    <div id="sonucMetni" style="display:none;">
+                        <div class="d-flex align-items-center justify-content-center mb-4">
+                            <div class="pulsing-circle me-2"></div>
+                            <small class="text-uppercase ls-1 fw-bold text-success">Analiz Tamamlandı</small>
+                        </div>
+
+                        <h6 class="opacity-75 text-uppercase ls-2">Tahmini Tüketim</h6>
+                        
+                        <h1 class="display-1 fw-bold mb-4 text-white">
+                            <span id="tahminSayac">0</span>
+                            <span class="fs-4 text-white-50">MWh</span>
+                        </h1>
+
+                        <div class="row g-3 mt-4">
+                            <div class="col-4">
+                                <div class="detail-box">
+                                    <i class="bi bi-thermometer-half fs-4 text-warning mb-2 d-block"></i>
+                                    <small class="d-block opacity-75">Sıcaklık</small>
+                                    <strong id="sonucSicaklik">-</strong>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="detail-box">
+                                    <i class="bi bi-clock-history fs-4 text-info mb-2 d-block"></i>
+                                    <small class="d-block opacity-75">Geçmiş (Lag)</small>
+                                    <strong id="lagDegeri">-</strong>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="detail-box">
+                                    <i class="bi bi-check2-circle fs-4 text-success mb-2 d-block"></i>
+                                    <small class="d-block opacity-75">Durum</small>
+                                    <strong>Başarılı</strong>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4 pt-3 border-top border-white border-opacity-10">
+                             <small class="font-monospace opacity-50" id="debugMesaj">...</small>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <script>
+        // Sayfa açılınca bugünün tarihini seç
+        document.getElementById('tarih').valueAsDate = new Date();
+
+        function verileriGonder() {
+            var tarih = $("#tarih").val();
+            var saat = $("#saat").val();
+            var sicaklik = $("#sicaklik").val();
+
+            // Doğrulama
+            if (!tarih || !saat || !sicaklik) {
+                Swal.fire({ 
+                    icon: 'warning', 
+                    title: 'Eksik Veri', 
+                    text: 'Lütfen tüm alanları doldurunuz.',
+                    confirmButtonColor: '#0f766e'
+                });
+                return;
+            }
+
+            // Ekran durumlarını değiştir
+            $("#baslangicDurumu").hide();
+            $("#sonucMetni").hide();
+            $("#yukleniyor").fadeIn();
+
+            // Saati Controller formatına uydur
+            // (input type="time" bazen saniye vermez, bazen verir. Biz garanti olsun diye alırız)
+            // Controller sadece saati (örn: 14) alıp split ettiği için format çok dert değil ama temiz olsun.
+            
+            var veri = {
+                Tarih: tarih,
+                Saat: saat,
+                Sicaklik: parseFloat(sicaklik)
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/Tahmin/VerileriHazirla",
+                data: JSON.stringify(veri),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (res) {
+                    $("#yukleniyor").hide();
+                    
+                    // Verileri Kutulara Yaz
+                    $("#sonucSicaklik").text(res.sicaklik + " °C");
+                    $("#lagDegeri").text(res.lag_24h.toFixed(2) + " MWh"); // Virgülden sonra 2 hane
+                    $("#debugMesaj").text(res.debug_mesaj);
+
+                    $("#sonucMetni").fadeIn();
+
+                    // Sayı Saydırma Animasyonu
+                    animateValue("tahminSayac", 0, res.tahmin, 1500);
+                },
+                error: function (err) {
+                    $("#yukleniyor").hide();
+                    $("#baslangicDurumu").show();
+                    console.error(err);
+                    Swal.fire({ 
+                        icon: 'error', 
+                        title: 'Hata', 
+                        text: 'Sunucu veya Python API ile bağlantı kurulamadı.',
+                        confirmButtonColor: '#d33'
+                    });
+                }
+            });
+        }
+
+        // Sayı Saydırma Efekti Fonksiyonu
+        function animateValue(id, start, end, duration) {
+            var obj = document.getElementById(id);
+            var range = end - start;
+            var minTimer = 50;
+            var stepTime = Math.abs(Math.floor(duration / range));
+            
+            stepTime = Math.max(stepTime, minTimer);
+            
+            var startTime = new Date().getTime();
+            var endTime = startTime + duration;
+            var timer;
+          
+            function run() {
+                var now = new Date().getTime();
+                var remaining = Math.max((endTime - now) / duration, 0);
+                var value = Math.round(end - (remaining * range));
+                
+                // Burası sayının virgülden sonrasını düzgün göstersin diye
+                obj.innerHTML = (end - (remaining * range)).toFixed(2);
+                
+                if (value == end) {
+                    clearInterval(timer);
+                }
+            }
+            
+            timer = setInterval(run, stepTime);
+            run();
+        }
+    </script>
+}

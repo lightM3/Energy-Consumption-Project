@@ -1,0 +1,76 @@
+@model EnerjiTahmin.Models.Kullanici
+@{
+    ViewData["Title"] = "Profilim";
+    Layout = "_Layout";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                <div class="card-header border-0 text-white p-4 text-center" 
+                     style="background: linear-gradient(135deg, #0f766e 0%, #0f172a 100%);">
+                    <div class="mb-3">
+                        <div class="d-inline-flex align-items-center justify-content-center bg-white bg-opacity-25 rounded-circle" style="width: 80px; height: 80px;">
+                            <i class="bi bi-person-fill fs-1 text-white"></i>
+                        </div>
+                    </div>
+                    <h4 class="fw-bold mb-0">@Model.AdSoyad</h4>
+                    <p class="mb-0 small opacity-75">@Model.Rol Hesabı</p>
+                </div>
+
+                <div class="card-body p-4 bg-white">
+                    
+                    @if (ViewBag.Success != null)
+                    {
+                        <div class="alert alert-success text-center small">
+                            <i class="bi bi-check-circle-fill me-1"></i> @ViewBag.Success
+                        </div>
+                    }
+
+                    <form action="/Account/Profile" method="post">
+                        
+                        <div class="mb-3">
+                            <label class="form-label text-secondary small fw-bold">E-posta Adresi</label>
+                            <input type="email" class="form-control bg-light" value="@Model.Email" readonly>
+                            <small class="text-muted" style="font-size: 0.7rem;">Güvenlik gereği e-posta değiştirilemez.</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label text-secondary small fw-bold">Ad Soyad</label>
+                            <input type="text" class="form-control" name="AdSoyad" value="@Model.AdSoyad" required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label text-secondary small fw-bold">Yeni Şifre</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="Sifre" value="@Model.Sifre" required>
+                                <span class="input-group-text bg-white text-secondary"><i class="bi bi-key"></i></span>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary shadow-sm" style="background-color: #0f766e; border:none;">
+                                <i class="bi bi-save me-2"></i> Değişiklikleri Kaydet
+                            </button>
+                            <a href="/Account/Logout" class="btn btn-outline-danger">
+                                <i class="bi bi-box-arrow-right me-2"></i> Çıkış Yap
+                            </a>
+                            <div class="mt-3 text-center border-top pt-3">
+    <p class="text-danger small fw-bold">Tehlikeli Bölge</p>
+    <form action="/Account/DeleteAccount" method="post" onsubmit="return confirm('Hesabınızı kalıcı olarak silmek istediğinize emin misiniz? Bu işlem geri alınamaz!');">
+        <button type="submit" class="btn btn-sm btn-danger w-100 bg-opacity-10 text-danger border-danger">
+            <i class="bi bi-trash me-2"></i> Hesabımı Kalıcı Olarak Sil
+        </button>
+    </form>
+</div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

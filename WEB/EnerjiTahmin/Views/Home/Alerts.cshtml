@@ -1,0 +1,121 @@
+@model List<EnerjiTahmin.Models.HighConsumptionView>
+
+@{
+    ViewData["Title"] = "Kritik Tüketim Alarmları";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .alert-card {
+        border-radius: 15px;
+        border: none;
+        box-shadow: 0 10px 25px rgba(220, 53, 69, 0.15); /* Hafif kırmızı gölge */
+        overflow: hidden;
+    }
+    
+    .table-danger-hover tbody tr:hover {
+        background-color: #fff5f5;
+        transform: scale(1.005);
+        transition: all 0.2s ease-in-out;
+    }
+
+    .time-badge {
+        background-color: #ffebee;
+        color: #c62828;
+        padding: 5px 10px;
+        border-radius: 8px;
+        font-weight: bold;
+        font-size: 0.9rem;
+    }
+
+    .value-highlight {
+        font-size: 1.1rem;
+        font-weight: 800;
+        color: #d63031;
+    }
+</style>
+
+<div class="container py-5">
+    <div class="row mb-4 text-center">
+        <div class="col-12">
+            <h2 class="fw-bold text-danger">🚨 Yüksek Tüketim Alarmları</h2>
+            <p class="text-muted">30000 MWh üzerindeki kritik yük saatleri</p>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card alert-card">
+                <div class="card-header bg-danger text-white p-3 d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">⚠️ Kritik Seviye Kayıtları</h5>
+                    <span class="badge bg-white text-danger rounded-pill">Son 50 Kayıt</span>
+                </div>
+                
+                <div class="card-body p-0">
+                    <table class="table table-danger-hover mb-0 align-middle">
+                        <thead class="bg-light text-secondary small text-uppercase">
+                            <tr>
+                                <th class="ps-4 py-3">Tarih / Saat</th>
+                                <th>Tüketim Değeri</th>
+                                <th>Önceki Gün (Lag)</th>
+                                <th>Durum</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                // Artış oranı hesaplama (Opsiyonel görsel detay)
+                                decimal fark = 0;
+                                if(item.Lag_24h.HasValue && item.Lag_24h > 0)
+                                {
+                                    fark = item.MWh_Value - item.Lag_24h.Value;
+                                }
+
+                                <tr>
+                                    <td class="ps-4">
+                                        <div class="d-flex flex-column">
+                                            <span class="fw-bold text-dark">@item.Date.ToString("dd.MM.yyyy")</span>
+                                            <span class="time-badge mt-1" style="width: fit-content;">
+                                                🕒 @item.Time.ToString(@"hh\:mm")
+                                            </span>
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <span class="value-highlight">@item.MWh_Value.ToString("N0") MWh</span>
+                                            <i class="bi bi-graph-up-arrow text-danger ms-2"></i>
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        @if (item.Lag_24h.HasValue)
+                                        {
+                                            <span class="text-muted">@item.Lag_24h.Value.ToString("N0") MWh</span>
+                                            if(fark > 0)
+                                            {
+                                                <small class="text-danger d-block fw-bold">
+                                                    +@fark.ToString("N0") artış 🔺
+                                                </small>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted">-</span>
+                                        }
+                                    </td>
+
+                                    <td>
+                                        <span class="badge bg-danger bg-opacity-10 text-danger border border-danger px-3 py-2 rounded-pill">
+                                            Yüksek Yük
+                                        </span>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
