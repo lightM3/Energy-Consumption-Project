@@ -1,27 +1,81 @@
 using Microsoft.AspNetCore.Mvc;
-using EnerjiTahmin.Data;   
-using EnerjiTahmin.Models; 
-using Microsoft.AspNetCore.Http; 
+using EnerjiTahmin.Data;   // EF Context için
+using EnerjiTahmin.Models; // Modeller için
 using Microsoft.EntityFrameworkCore; 
-using EnerjiTahmin.Helpers; 
-using System.Net.Http;
 using System.Text;
-using System.Text.Json; 
-using EnerjiTahmin.DTOs; 
+using System.Text.Json;
+using EnerjiTahmin.DTOs;
 
 namespace EnerjiTahmin.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly AppDbContext _context; 
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly AppDbContext _context; // 🟢 EF Core Bağlantısı
+        private readonly IHttpClientFactory _httpClientFactory; // 🟠 API Bağlantısı
 
+        // Constructor'da ikisini de istiyoruz (Hibrit Mimari)
         public AccountController(AppDbContext context, IHttpClientFactory httpClientFactory)
         {
             _context = context;
             _httpClientFactory = httpClientFactory;
         }
 
+        // ==========================================
+        // 1. GİRİŞ YAP (SOA / API KULLANIYOR)
+        // ==========================================
+        [HttpGet]
+        public IActionResult Login() => View();
+
+        [HttpPost]
+        public async Task<IActionResult> Login(string email, string password)
+        {
+            // API'ye İstek Atıyoruz
+            var client = _httpClientFactory.CreateClient("SoaApiClient");
+            var content = new StringContent(JsonSerializer.Serialize(new { email, password }), Encoding.UTF8, "application/json");
+            
+            var response = await client.PostAsync("auth/login", content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                var data = JsonSerializer.Deserialize<LoginResponse>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+                // Session Doldurma
+                HttpContext.Session.SetString("UserEmail", data.user.email);
+                HttpContext.Session.SetString("UserName", data.user.name);
+                
+                // DİKKAT: EF Core için ID lazım. API'den gelen ID'yi saklıyoruz.
+                HttpContext.Session.SetString("UserID", data.user.id.ToString()); 
+                
+                string role = data.user.email.Contains("admin") ? "Admin" : "User";
+                HttpContext.Session.SetString("UserRole", role);
+
+                return RedirectToAction("Index", "Home");
+            }
+            
+            ViewBag.Error = "Giriş başarısız. E-posta veya şifre hatalı.";
+            return View();
+        }
+
+        // ==========================================
+        // 2. KAYIT OL (SOA / API KULLANIYOR)
+        // ==========================================
+        [HttpGet]
+        public IActionResult Register() => View();
+
+        [HttpPost]
+        public async Task<IActionResult> Register(Kullanici k)
+        {
+            var client = _httpClientFactory.CreateClient("SoaApiClient");
+            var content = new StringContent(JsonSerializer.Serialize(new { name = k.AdSoyad, email = k.Email, password = k.Sifre }), Encoding.UTF8, "application/json");
+
+            var response = await client.PostAsync("auth/register", content);
+
+            if (response.IsSuccessStatusCode) return RedirectToAction("Login");
+            
+            ViewBag.Error = "Kayıt başarısız oldu.";
+            return View(k);
+        }
 
         // ==========================================
         // 3. ÇIKIŞ YAP (LOGOUT)
@@ -145,7 +199,8 @@ namespace EnerjiTahmin.Controllers
             var client = _httpClientFactory.CreateClient("SoaApiClient");
 
             
-            var response = await client.DeleteAsync($"users/delete-account/{userIdString}"); 
+  
+var response = await client.DeleteAsync($"auth/delete-account/{userIdString}");
 
             if (response.IsSuccessStatusCode)
             {

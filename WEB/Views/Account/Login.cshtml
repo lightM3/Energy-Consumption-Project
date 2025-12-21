@@ -37,12 +37,15 @@
         
         .social-btn { border: 1px solid #e9ecef; background: white; padding: 10px; border-radius: 8px; color: #555; transition: all 0.2s; }
         .social-btn:hover { background: #f8f9fa; color: #000; transform: translateY(-2px); }
+
+        .hover-underline:hover { text-decoration: underline !important; color: #0f766e !important; }
     </style>
 </head>
 <body>
 
     <div class="container-fluid g-0 login-container">
         <div class="row g-0 h-100">
+            
             <div class="col-lg-6 d-none d-lg-block bg-image-section">
                 <div class="bg-overlay">
                     <div class="mb-4">
@@ -112,6 +115,13 @@
                             <a href="/Account/Register" class="text-success fw-bold text-decoration-none">Hesap Oluştur</a>
                         </p>
                     </div>
+                    
+                    <div class="text-center mt-3">
+                         <a href="/Home/Index" class="text-secondary small text-decoration-none hover-underline">
+                            <i class="bi bi-arrow-left"></i> Ana Sayfaya Dön
+                        </a>
+                    </div>
+
                 </div>
             </div>
         </div>

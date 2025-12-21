@@ -40,6 +40,9 @@
                 <a href="/Admin/Loglar" class="@(ViewContext.RouteData.Values["Action"].ToString() == "Loglar" ? "active" : "")">
                     <i class="bi bi-activity me-2"></i> Sistem Logları
                 </a>
+              <a href="/Admin/Suggestions" class="@(ViewContext.RouteData.Values["Action"].ToString() == "Suggestions" ? "active" : "")">
+                    <i class="bi bi-chat-dots me-2"></i> İstek ve Öneriler
+                </a>
 
                 <p class="text-uppercase small text-muted fw-bold ms-2 mt-4 mb-2">Hesap</p>
                 <a href="/Home/Index" target="_blank">

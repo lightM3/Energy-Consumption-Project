@@ -14,10 +14,17 @@ public class HomeController : Controller
         _context = context;
     }
 
-    public IActionResult Index()
-    {
-        return View();
-    }
+  public IActionResult Index()
+{
+    
+    ViewBag.HosgeldinMesaji = "Enerji Yönetim Paneline Hoşgeldiniz!";
+
+   
+    ViewData["Tarih"] = DateTime.Now.ToString("dd MMMM yyyy, dddd");
+    ViewData["Versiyon"] = "v1.0.5";
+
+    return View();
+}
     public IActionResult CityStats()
     {
     var stats = _context.CityTemperatures.OrderByDescending(x => x.AvgTemp).ToList();
@@ -26,8 +33,7 @@ public class HomeController : Controller
     }
     public IActionResult DailyStats()
 {
-    // Tarihe göre sondan başa sırala (En yeni gün en üstte)
-    // Sadece son 30 günü getir ki liste çok uzamasın
+  
     var data = _context.DailySummaries
                        .OrderByDescending(x => x.Date)
                        .Take(30) 
