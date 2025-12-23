@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Text;
 using System.Text.Json;
 
-namespace EnerjiTahmin.Controllers; // <-- Senin proje ismin (Kesin doğru)
+namespace EnerjiTahmin.Controllers; 
 
 public class ChatController : Controller
 {
@@ -17,7 +17,7 @@ public class ChatController : Controller
             {
               
                 
-                string apiKey = "AIzaSyDDjLOFdO8yDOYLGwrK-EyTq0A6m9VLr8k"; 
+                string apiKey = "AIzaSyC6SmQnIwXKKtxMJN8QzvJAn10kEQJCLwA"; 
                 
               
 string url = $"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={apiKey}";;

@@ -1,0 +1,41 @@
+@model EnerjiTahmin.Models.Suggestion
+@{ ViewData["Title"] = "İstek ve Öneri"; Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            
+            @if(TempData["Mesaj"] != null)
+            {
+                <div class="alert alert-success shadow-sm rounded-3">
+                    <i class="bi bi-check-circle-fill me-2"></i> @TempData["Mesaj"]
+                </div>
+            }
+
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-header bg-gradient bg-primary text-white p-4">
+                    <h4 class="mb-0"><i class="bi bi-lightbulb-fill me-2"></i>Fikirlerinizi Önemsiyoruz</h4>
+                    <p class="mb-0 opacity-75 small">Sistemi geliştirmemiz için bize yazın.</p>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Create" method="post">
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Konu</label>
+                            <input asp-for="Konu" class="form-control" placeholder="Örn: Yeni özellik isteği" required />
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Mesajınız</label>
+                            <textarea asp-for="Mesaj" class="form-control" rows="5" placeholder="Düşüncelerinizi buraya yazın..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100 py-2 rounded-pill fw-bold shadow">
+                            <i class="bi bi-send-fill me-2"></i> Gönder
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

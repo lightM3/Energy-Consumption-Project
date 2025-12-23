@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using EnerjiTahmin.Data;
 using EnerjiTahmin.Models;
-
+using Microsoft.EntityFrameworkCore;
 public class AdminController : Controller
 {
     private readonly AppDbContext _context;
@@ -74,4 +74,30 @@ var users = _context.UserDetails.ToList();
                            .ToList();
         return View(logs);
     }
+    // AdminController.cs içine ekle:
+
+// İSTEK VE ÖNERİLERİ LİSTELE (READ)
+public async Task<IActionResult> Suggestions()
+{
+    if (!IsAdmin()) return RedirectToAction("Login", "Account");
+
+    // İlişkisel veri çekme (Include ile Kullanıcı adını da alıyoruz)
+    var list = await _context.Oneriler
+                             .Include(x => x.GonderenKisi) // İlişkiyi dahil et
+                             .OrderByDescending(x => x.Tarih)
+                             .ToListAsync();
+    return View(list);
+}
+
+// MESAJI SİL (DELETE)
+public async Task<IActionResult> DeleteSuggestion(int id)
+{
+    if (!IsAdmin()) return RedirectToAction("Login", "Account");
+    var item = await _context.Oneriler.FindAsync(id);
+    if(item != null) {
+        _context.Oneriler.Remove(item);
+        await _context.SaveChangesAsync();
+    }
+    return RedirectToAction(nameof(Suggestions));
+}
 }

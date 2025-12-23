@@ -10,6 +10,7 @@ namespace EnerjiTahmin.Data
         }
 
         // Tablolar
+        public DbSet<Suggestion> Oneriler { get; set; }
         public DbSet<TuketimVerisi> TuketimVerileri { get; set; }
         public DbSet<Kullanici> Kullanicilar { get; set; }
         public DbSet<IslemLog> IslemLoglari { get; set; }
